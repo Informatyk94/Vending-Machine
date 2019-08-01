@@ -27,12 +27,12 @@ class machine{
         foreach($typeOfMoneyAndState as $type){
             if($type["id"] == $i){
                 $type["quantity"] = $type["quantity"] + 1;
+                array_push();
             }
-            
         }
-    
+       
 
-        $this->typeOfMoneyAndState = $tab;
+        $this->typeOfMoneyAndState = $typeOfMoneyAndState ;
           
     }
 
