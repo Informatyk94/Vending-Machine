@@ -7,7 +7,7 @@ class machine{
     private $dollar =20;
 
     private $typeOfMoneyAndState = [
-        ["id"=> 0, "name" => "dollar" , "value" => 1,   "quantity" => 20],
+        ["id"=> 0, "name" => "dollar" , "value" => 1.00,   "quantity" => 20],
         ["id"=> 1, "name" => "quarter" ,"value" => 0.25,"quantity" => 20],
         ["id"=> 2, "name" => "dime" ,   "value" => 0.10,"quantity" => 20],
         ["id"=> 3, "name" => "nickiel" ,"value" => 0.05,"quantity" => 20],
@@ -22,18 +22,12 @@ class machine{
 
     //function add money
     public function addMoney($i){
-        $typeOfMoneyAndState = $this->typeOfMoneyAndState;
-        $tab = array();
-        foreach($typeOfMoneyAndState as $type){
+        foreach($this->typeOfMoneyAndState as &$type){
             if($type["id"] == $i){
                 $type["quantity"] = $type["quantity"] + 1;
-                array_push();
+                $this->update($type["value"]);
             }
-        }
-       
-
-        $this->typeOfMoneyAndState = $typeOfMoneyAndState ;
-          
+        }    
     }
 
     private function update($i){
@@ -41,11 +35,11 @@ class machine{
     }
 
     public function viewCash(){
-      echo $this->cash;
+        echo $this->cash . " ";
     } 
 
     public function buyItem($i){
-        if($this->cash > $this->items['item'.$i]){
+        if($this->cash >= $this->items['item'.$i]){
             echo "You bought the item";
             $this->cash = $this->cash - $this->items['item'.$i];
             echo "return money";
@@ -59,7 +53,6 @@ class machine{
         $returnCash = $this->cash;
         foreach($this->typeOfMoneyAndState as $type){
             //sprawdza ile bedzie do wydanai z określonego bilonu
-            
             $howMuchMoneyOfThisType = floor($returnCash / $type["value"]);
             if($howMuchMoneyOfThisType <= $type["quantity"]){
                 $returnCash = $returnCash - $howMuchMoneyOfThisType * $type["value"];
