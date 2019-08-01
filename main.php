@@ -12,10 +12,12 @@ public function __construct(){
     $machine->addMoney(1);
     $machine->addMoney(0);
     $machine->addMoney(0);
+    $machine->addMoney(0); 
     $machine->addMoney(0);
-    // $machine->viewCash();
-    // $machine->buyItem(0);
+    $machine->viewCash();
+    $machine->buyItem(0);
     $machine->returnMoney();
+   
 
 }   
 

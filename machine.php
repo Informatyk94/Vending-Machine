@@ -3,8 +3,15 @@ class machine{
     //condition of coins thrown
     private $nickiel = 20;
     private $dime = 20;
-    private $quarter = 1;
-    private $dollar =-1;
+    private $quarter = 20;
+    private $dollar =20;
+
+    private $typeOfMoneyAndState = [
+        ["id"=> 0, "name" => "dollar" , "value" => 1,   "quantity" => 20],
+        ["id"=> 1, "name" => "quarter" ,"value" => 0.25,"quantity" => 20],
+        ["id"=> 2, "name" => "dime" ,   "value" => 0.10,"quantity" => 20],
+        ["id"=> 3, "name" => "nickiel" ,"value" => 0.05,"quantity" => 20],
+    ];
 
     //budget for the purchase of the item
     private $cash = 0;
@@ -15,23 +22,18 @@ class machine{
 
     //function add money
     public function addMoney($i){
-        switch ($i) {
-            case 0:
-                $this->nickiel++;
-                $this->update(0.05);
-                break;
-            case 1:
-                $this->dime++;
-                $this->update(0.10);
-                break;
-            case 2:
-                $this->quarter++;
-                $this->update(0.25);
-                break;
-            case 3:
-                $this->dollar++;
-                $this->update(1.00);
+        $typeOfMoneyAndState = $this->typeOfMoneyAndState;
+        $tab = array();
+        foreach($typeOfMoneyAndState as $type){
+            if($type["id"] == $i){
+                $type["quantity"] = $type["quantity"] + 1;
+            }
+            
         }
+    
+
+        $this->typeOfMoneyAndState = $tab;
+          
     }
 
     private function update($i){
@@ -55,34 +57,21 @@ class machine{
 
     public function returnMoney(){
         $returnCash = $this->cash;
-
-        $dollar = floor($returnCash / 1);
-        if($dollar <= $this->dollar){
-            $returnCash = $returnCash - $dollar;
-            $this->dollar = $this->dollar - $dollar;  
-            echo $dollar . " x dollar";
-        }elseif($this->dollar < $dollar && $this->dollar > 0 ){
-            //how much can you give away coins
-            $cacheCash = $dollar - $this->dollar;
-            $returnCash = $returnCash - $cacheCash;
-            $this->dollar = $this->dollar - $cacheCash;  
-            echo $cacheCash . " x dollar";
+        foreach($this->typeOfMoneyAndState as $type){
+            //sprawdza ile bedzie do wydanai z określonego bilonu
+            
+            $howMuchMoneyOfThisType = floor($returnCash / $type["value"]);
+            if($howMuchMoneyOfThisType <= $type["quantity"]){
+                $returnCash = $returnCash - $howMuchMoneyOfThisType * $type["value"];
+                $type["quantity"] = $type["quantity"] - $howMuchMoneyOfThisType;  
+                echo $howMuchMoneyOfThisType . " x " . $type["name"] . "  ";
+            }elseif($type["quantity"] < $howMuchMoneyOfThisType && $type["quantity"] > 0 ){
+                //how much can you give away coins
+                $cacheCash = $howMuchMoneyOfThisType - $type["quantity"];
+                $returnCash = $returnCash - $cacheCash * $type["value"];
+                $type["quantity"] = $type["quantity"] - $cacheCash * $type["value"];  
+                echo $cacheCash . " x " . $type["name"]  . "  ";
+            }
         }
-
-        $quarter = floor($returnCash / 0.25);
-        if($quarter <= $this->quarter){
-            $returnCash = $returnCash - $quarter * 0.25;
-            $this->quarter = $this->quarter - $quarter;
-            echo $quarter . " x quarter";
-        }elseif($this->quarter < $quarter && $this->quarter > 0 ){
-            //how much can you give away coins
-            $cacheCash = $quarter - $this->quarter;
-            $returnCash = $returnCash - $cacheCash*0.25;
-            $this->quarter = $this->quarter - $cacheCash;  
-            echo $cacheCash . " x quarter";
-        }
-        
-        
     }
-
 }
