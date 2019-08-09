@@ -1,7 +1,7 @@
 <?php
 class machine{
     private $typeOfMoneyAndState = [
-        ["id"=> 0, "name" => "dollar" , "value" => 1,   "quantity" => 0],
+        ["id"=> 0, "name" => "dollar" , "value" => 1,   "quantity" => 20],
         ["id"=> 1, "name" => "quarter" ,"value" => 0.25,"quantity" => 20],
         ["id"=> 2, "name" => "dime" ,   "value" => 0.1,"quantity" => 20],
         ["id"=> 3, "name" => "nickiel" ,"value" => 0.05,"quantity" => 20],
@@ -112,5 +112,51 @@ class machine{
         var_dump($this->items);
         echo "<br />";
         print_r($this->typeOfMoneyAndState);
+    }
+
+    public function stateItem(){
+        echo "<table>
+            <tr>
+                <th>name</th>
+                <th>price</th>
+            </tr>
+            <tr>
+        ";
+        
+        foreach($this->items as $item => $price){
+            echo "<tr>";
+            echo "<td>" .$item. "</td>";
+            echo "<td>" .$price. "</td>";
+            echo "</tr>";
+        }
+
+        echo "</table>
+            </tr>
+        ";
+    }
+
+    public function stateCoin(){
+        echo "<table>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>value</th>
+                <th>quantity</th>
+                
+            </tr>
+            <tr>
+        ";
+        
+        foreach($this->typeOfMoneyAndState as $id => $coins){
+            echo "<tr>";
+            foreach($coins as $coin){
+                echo "<td>" .$coin. "</td>";
+            }
+            echo "</tr>";
+        }
+
+        echo "</table>
+            </tr>
+        ";
     }
 }
