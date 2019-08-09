@@ -1,13 +1,7 @@
 <?php
 class machine{
-    //condition of coins thrown
-    private $nickiel    = 20;
-    private $dime       = 20;
-    private $quarter    = 20;
-    private $dollar     = 20;
-
     private $typeOfMoneyAndState = [
-        ["id"=> 0, "name" => "dollar" , "value" => 1,   "quantity" => 20],
+        ["id"=> 0, "name" => "dollar" , "value" => 1,   "quantity" => 0],
         ["id"=> 1, "name" => "quarter" ,"value" => 0.25,"quantity" => 20],
         ["id"=> 2, "name" => "dime" ,   "value" => 0.1,"quantity" => 20],
         ["id"=> 3, "name" => "nickiel" ,"value" => 0.05,"quantity" => 20],
@@ -68,5 +62,55 @@ class machine{
                 echo $cacheCash . " x " . $type["name"]  . " <br /> ";
             }
         }
+    }
+
+    public function addMoneyServis($i){
+        foreach($this->typeOfMoneyAndState as &$type){
+            if($type["id"] == $i){
+                $type["quantity"] = $type["quantity"] + 1;
+            }
+        }
+    }
+
+    public function deleteMoneyServis($i){
+        foreach($this->typeOfMoneyAndState as &$type){
+            if($type["id"] == $i){
+                if($type["quantity"] > 0){
+                    $type["quantity"] = $type["quantity"] - 1;
+                }else{
+                    echo "<br />
+                        no coin
+                    <br />";
+                } 
+            }
+        }
+    }
+
+    public function addOrChangeItemServis($i, $j){
+        $name = "item".$i;
+        $this->items[$name] = $j;
+    }
+
+    public function deleteItemServis($i){
+        $name = "item".$i;
+        
+        if(in_array($name,  array_keys($this->items), true)){
+            unset($this->items[$name]);
+            echo "
+            <br /> 
+                Delete item ". $name ."
+            <br />";
+        }else{
+            echo "
+            <br /> 
+                There is no item
+            <br />";
+        }
+    }
+
+    public function stateView(){
+        var_dump($this->items);
+        echo "<br />";
+        print_r($this->typeOfMoneyAndState);
     }
 }

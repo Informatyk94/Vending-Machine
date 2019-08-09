@@ -18,13 +18,17 @@ class main{
         // $machine->returnMoney();
 
 
-        // $machine->addMoney(0);
-        // $machine->buyItem(0);
-        // $machine->returnMoney();
+        $machine->addMoney(0);
+        $machine->buyItem(0);
+        $machine->returnMoney();
 
         // $machine->viewCash();
         // $machine->deleteItemServis(1);
         // $machine->buyItem(0);
+
+        // $machine->stateView();
+        // $machine->deleteMoneyServis(0);
+        // $machine->stateView();
     }
 }
 $start = new main();
